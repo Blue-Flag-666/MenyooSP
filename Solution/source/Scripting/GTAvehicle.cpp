@@ -637,6 +637,11 @@ void GTAvehicle::SetForwardSpeed(float value)
 	SET_VEHICLE_FORWARD_SPEED(this->mHandle, value);
 }
 
+void GTAvehicle::MaxSpeed_set(float value)
+{
+	SET_VEHICLE_MAX_SPEED(this->mHandle, value);
+}
+
 float GTAvehicle::DirtLevel_get() const
 {
 	return GET_VEHICLE_DIRT_LEVEL(this->mHandle);
@@ -656,7 +661,10 @@ void GTAvehicle::PaintFade_set(float value)
 
 VehicleRoofState GTAvehicle::RoofState_get() const
 {
-	return static_cast<VehicleRoofState>(GET_CONVERTIBLE_ROOF_STATE(this->mHandle));
+	if (_IS_THIS_MODEL_AN_AMPHIBIOUS_CAR(this->mHandle))
+		return static_cast<VehicleRoofState>(1);
+	else
+		return static_cast<VehicleRoofState>(GET_CONVERTIBLE_ROOF_STATE(this->mHandle));
 }
 void GTAvehicle::RoofState_set(VehicleRoofState value)
 {
